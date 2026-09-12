@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GameProvider, useGame } from './context/GameContext';
 import { Navbar } from './components/Navbar';
+import { BackgroundCanvas } from './components/BackgroundCanvas';
 import { CompletionBanner } from './components/CompletionBanner';
 import { LevelUpModal } from './components/LevelUpModal';
 
@@ -87,11 +88,14 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 selection:bg-cyan-500 selection:text-black">
-      <Navbar currentPath={currentPath} onNavigate={handleNavigate} />
-      <CompletionBanner />
-      <LevelUpModal />
-      <main>{renderPage()}</main>
+    <div className="min-h-screen bg-[#080c14] text-slate-100 selection:bg-cyan-500 selection:text-black relative">
+      <BackgroundCanvas />
+      <div className="relative z-10">
+        <Navbar currentPath={currentPath} onNavigate={handleNavigate} />
+        <CompletionBanner />
+        <LevelUpModal />
+        <main>{renderPage()}</main>
+      </div>
     </div>
   );
 };

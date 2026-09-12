@@ -24,83 +24,85 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
   const { character, isAuthenticated, logoutUser } = useGame();
 
   const navLinks = [
-    { name: 'Adventure Hub', path: '/dashboard', icon: Compass },
+    { name: 'Adventure', path: '/dashboard', icon: Compass },
     { name: 'Quests', path: '/quests', icon: Swords },
     { name: 'Character', path: '/character', icon: User },
     { name: 'Chronicle', path: '/chronicle', icon: History },
-    { name: 'Guild Market', path: '/market', icon: ShoppingBag },
+    { name: 'Market', path: '/market', icon: ShoppingBag },
     { name: 'Arsenal', path: '/inventory', icon: Shield },
-    { name: 'Badges', path: '/achievements', icon: Award },
+    { name: 'Trophies', path: '/achievements', icon: Award },
   ];
 
   const xpPercentage = Math.min(100, Math.round((character.xp / character.xp_to_next_level) * 100));
 
   return (
     <>
-      {/* Desktop & Laptop Header Bar */}
-      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#080c14]/85 border-b border-cyan-500/20 shadow-[0_4px_30px_rgba(0,240,255,0.05)]">
+      {/* Game HUD Header Bar */}
+      <header className="sticky top-0 z-40 w-full bg-[#050814]/90 backdrop-blur-xl border-b border-cyan-500/30 shadow-[0_4px_30px_rgba(0,240,255,0.15)] rpg-hud-border font-mono">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          {/* Logo & Brand */}
+          {/* Brand Logo & Rank */}
           <div
             onClick={() => onNavigate(isAuthenticated ? '/dashboard' : '/')}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 p-[2px] shadow-[0_0_15px_rgba(0,240,255,0.4)] group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full bg-[#0d1322] rounded-[10px] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-sky-300 to-blue-600 p-[2px] shadow-[0_0_20px_rgba(0,240,255,0.5)] group-hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full bg-[#080c14] rounded-[10px] flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-cyan-400 animate-pulse" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-200 to-blue-400 font-mono">
+                <span className="font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-400">
                   LIFE RPG
                 </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                  v2.0
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">
+                  HUD
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 font-mono hidden sm:block">Turn life into an adventure</p>
+              <p className="text-[10px] text-slate-400 hidden sm:block">REAL-LIFE GAME INTERFACE</p>
             </div>
           </div>
 
-          {/* User Stats & Badges Header Bar */}
+          {/* Game HUD User Stats Bar */}
           {isAuthenticated && (
-            <div className="hidden lg:flex items-center gap-6">
-              {/* Level & XP */}
-              <div className="flex items-center gap-3 bg-[#0d1322] border border-cyan-500/20 px-3.5 py-1.5 rounded-xl shadow-inner">
-                <div className="flex items-center gap-1.5 font-bold font-mono text-cyan-400">
+            <div className="hidden lg:flex items-center gap-5">
+              {/* Level & XP Gauge */}
+              <div className="flex items-center gap-3 bg-[#080c14] border border-cyan-500/30 px-3.5 py-1.5 rounded-xl shadow-inner">
+                <div className="flex items-center gap-1.5 font-extrabold text-cyan-400">
                   <Zap className="w-4 h-4 text-cyan-400 fill-cyan-400/20" />
                   <span>LVL {character.level}</span>
                 </div>
-                <div className="w-28 flex flex-col gap-1">
-                  <div className="flex justify-between text-[10px] text-slate-400 font-mono">
+                <div className="w-32 flex flex-col gap-1">
+                  <div className="flex justify-between text-[10px] text-slate-400">
                     <span>XP</span>
-                    <span>{character.xp} / {character.xp_to_next_level}</span>
+                    <span className="text-cyan-300 font-bold">
+                      {character.xp} / {character.xp_to_next_level}
+                    </span>
                   </div>
-                  <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden p-[1px] border border-slate-700">
+                  <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden p-[1px] border border-slate-800">
                     <div
-                      className="h-full bg-gradient-to-r from-cyan-500 to-sky-300 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(0,240,255,0.6)]"
+                      className="h-full bg-gradient-to-r from-cyan-500 to-sky-300 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(0,240,255,0.8)]"
                       style={{ width: `${xpPercentage}%` }}
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Gold Counter */}
-              <div className="flex items-center gap-2 bg-[#0d1322] border border-amber-500/30 px-3 py-1.5 rounded-xl text-amber-400 font-mono font-bold text-sm shadow-[0_0_12px_rgba(255,215,0,0.15)]">
-                <span className="text-lg">🪙</span>
+              {/* Gold Treasury */}
+              <div className="flex items-center gap-2 bg-[#080c14] border border-amber-500/40 px-3.5 py-1.5 rounded-xl text-amber-300 font-extrabold text-xs shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                <span className="text-base">💰</span>
                 <span>{character.gold.toLocaleString()} GOLD</span>
               </div>
 
-              {/* Streak Counter */}
-              <div className="flex items-center gap-2 bg-[#0d1322] border border-orange-500/30 px-3 py-1.5 rounded-xl text-orange-400 font-mono font-bold text-sm shadow-[0_0_12px_rgba(255,100,0,0.15)]">
+              {/* Streak Flame */}
+              <div className="flex items-center gap-2 bg-[#080c14] border border-orange-500/40 px-3.5 py-1.5 rounded-xl text-orange-400 font-extrabold text-xs shadow-[0_0_15px_rgba(255,100,0,0.2)]">
                 <Flame className="w-4 h-4 text-orange-500 fill-orange-500 animate-bounce" />
-                <span>{character.current_streak} DAYS</span>
+                <span>🔥 {character.current_streak} DAY STREAK</span>
               </div>
             </div>
           )}
 
-          {/* Navigation Items (Desktop) */}
+          {/* Navigation Links */}
           <div className="flex items-center gap-2">
             {isAuthenticated ? (
               <div className="hidden md:flex items-center gap-1">
@@ -111,10 +113,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
                     <button
                       key={link.path}
                       onClick={() => onNavigate(link.path)}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold tracking-wide font-mono transition-all duration-200 ${
+                      className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 ${
                         isActive
-                          ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(0,240,255,0.2)]'
-                          : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                          ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/60 shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+                          : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
                       }`}
                     >
                       <Icon className={`w-4 h-4 ${isActive ? 'text-cyan-400' : 'text-slate-400'}`} />
@@ -137,15 +139,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => onNavigate('/login')}
-                  className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-cyan-400 hover:text-white border border-cyan-500/40 hover:bg-cyan-500/10 transition-all duration-200"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-cyan-400 hover:text-white border border-cyan-500/40 hover:bg-cyan-500/10 transition-all duration-200"
                 >
                   LOGIN
                 </button>
                 <button
                   onClick={() => onNavigate('/signup')}
-                  className="px-4 py-2 rounded-xl text-xs font-bold font-mono text-[#080c14] bg-gradient-to-r from-cyan-400 to-sky-300 hover:from-cyan-300 hover:to-white shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all duration-200"
+                  className="px-4 py-2 rounded-xl text-xs font-black text-[#050814] bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 hover:from-cyan-300 hover:to-white shadow-[0_0_20px_rgba(0,240,255,0.5)] transition-all duration-200"
                 >
-                  START JOURNEY
+                  ⚔ START JOURNEY
                 </button>
               </div>
             )}
@@ -155,7 +157,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
 
       {/* Mobile Bottom Navigation Bar */}
       {isAuthenticated && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#080c14]/95 backdrop-blur-lg border-t border-cyan-500/20 px-2 py-2 flex items-center justify-around shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#050814]/95 backdrop-blur-xl border-t border-cyan-500/30 px-2 py-2 flex items-center justify-around shadow-[0_-4px_25px_rgba(0,0,0,0.8)] font-mono">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = currentPath === link.path;
@@ -163,12 +165,12 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
               <button
                 key={link.path}
                 onClick={() => onNavigate(link.path)}
-                className={`flex flex-col items-center gap-1 p-1.5 rounded-lg text-[10px] font-mono font-medium transition-all ${
-                  isActive ? 'text-cyan-400 bg-cyan-500/10' : 'text-slate-400 hover:text-slate-200'
+                className={`flex flex-col items-center gap-1 p-1.5 rounded-lg text-[10px] font-bold transition-all ${
+                  isActive ? 'text-cyan-400 bg-cyan-500/15 border border-cyan-500/40' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 <Icon className="w-5 h-5" />
-                <span className="truncate max-w-[56px]">{link.name.split(' ')[0]}</span>
+                <span className="truncate max-w-[56px]">{link.name}</span>
               </button>
             );
           })}
