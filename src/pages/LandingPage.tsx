@@ -1,446 +1,200 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useGame } from '../context/GameContext';
 import {
-  Sparkles,
-  MapPin,
-  Layers,
-  Route,
-  ShieldCheck,
-  ArrowRight,
-  Bot,
-  Building2,
-  Globe,
-  Bell,
-  FileSpreadsheet,
-  Zap,
-  Droplets,
-  Train,
-  Plane,
-  Anchor,
-  Box,
+  Award,
+  BookOpen,
+  Brain,
   CheckCircle2,
-  ExternalLink,
   ChevronRight,
-  Map as MapIcon,
-  Search,
+  Flame,
+  Shield,
+  ShoppingBag,
+  Sparkles,
+  Swords,
+  Trophy,
+  Zap,
 } from 'lucide-react';
 
 interface LandingPageProps {
-  onNavigatePage: (page: string) => void;
+  onNavigate: (path: string) => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onNavigatePage }) => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'engines' | 'projects'>('overview');
+export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+  const { isAuthenticated, character } = useGame();
+
+  const handleStart = () => {
+    if (isAuthenticated) {
+      onNavigate('/dashboard');
+    } else {
+      onNavigate('/signup');
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-['Plus_Jakarta_Sans',sans-serif] relative overflow-x-hidden">
-      {/* Official Government Tricolour Top Ribbon */}
-      <div className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FF9933] via-white to-[#138808] z-50" />
+    <div className="min-h-screen bg-[#080c14] text-slate-100 font-mono relative overflow-hidden">
+      {/* Background Neon Grid & Particle Glows */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-[#080c14] to-[#080c14] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Official Government Top Utility Bar */}
-      <div className="bg-slate-900 text-slate-200 text-[11px] py-1.5 px-4 lg:px-12 flex flex-wrap items-center justify-between border-b border-slate-800 z-40">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 font-semibold">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-amber-400 font-bold">भारत सरकार</span>
-            <span className="text-slate-400">|</span>
-            <span>Government of India</span>
-          </div>
-          <span className="text-slate-600 hidden md:inline">•</span>
-          <span className="text-slate-300 hidden md:inline">
-            गति शक्ति राष्ट्रीय मास्टर प्लान | PM Gati Shakti National Master Plan
-          </span>
+      {/* Hero Section */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center z-10">
+        {/* Top Tagline Pill */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold mb-6 shadow-[0_0_20px_rgba(0,240,255,0.2)] animate-pulse">
+          <Sparkles className="w-4 h-4 text-cyan-400" />
+          <span>GAMIFIED PRODUCTIVITY SYSTEM</span>
         </div>
 
-        <div className="flex items-center gap-4 text-[10px] font-semibold text-slate-300">
-          <div className="hidden sm:flex items-center gap-2">
-            <span>Accessibility:</span>
-            <button className="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700">A-</button>
-            <button className="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700">A</button>
-            <button className="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700">A+</button>
+        {/* Title */}
+        <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+          LIFE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-200 to-blue-500">RPG</span>
+        </h1>
+
+        {/* Tagline */}
+        <p className="text-xl sm:text-2xl font-bold text-slate-200 mb-4 max-w-3xl mx-auto font-sans">
+          "Turn your real life into an adventure."
+        </p>
+
+        {/* Supporting text */}
+        <p className="text-sm sm:text-base text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Transform daily chores into real quests. Earn XP, collect Gold, build your attributes, maintain your streak, and level up your real-world character.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          <button
+            onClick={handleStart}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-[#080c14] font-black tracking-widest text-base shadow-[0_0_40px_rgba(0,240,255,0.5)] transition-all transform hover:scale-105 flex items-center justify-center gap-3"
+          >
+            <span>START YOUR JOURNEY</span>
+            <ChevronRight className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => onNavigate('/quests')}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#0d1322] border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:text-white font-bold tracking-wider text-base transition-all hover:bg-cyan-500/10 flex items-center justify-center gap-2"
+          >
+            <span>EXPLORE THE WORLD</span>
+          </button>
+        </div>
+
+        {/* Interactive Visual RPG Preview Showcase */}
+        <div className="max-w-5xl mx-auto bg-[#0d1322]/90 border border-cyan-500/30 rounded-3xl p-6 sm:p-8 shadow-[0_0_80px_rgba(0,240,255,0.25)] backdrop-blur-xl text-left relative">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-rose-500" />
+              <div className="w-3 h-3 rounded-full bg-amber-500" />
+              <div className="w-3 h-3 rounded-full bg-emerald-500" />
+              <span className="text-xs text-slate-400 font-mono ml-2">LIFE_RPG_SYSTEM // ADVENTURE_HUB_PREVIEW</span>
+            </div>
+            <div className="text-xs text-cyan-400 font-mono font-bold">LVL {character.level} HERO</div>
           </div>
-          <span className="text-slate-600 hidden sm:inline">•</span>
-          <div className="flex items-center gap-1">
-            <Globe className="w-3 h-3 text-emerald-400" />
-            <select className="bg-slate-800 text-slate-200 border-0 rounded px-1.5 py-0.5 text-[10px]">
-              <option>English</option>
-              <option>हिन्दी (Hindi)</option>
-            </select>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Character Preview */}
+            <div className="bg-[#080c14] border border-cyan-500/20 rounded-2xl p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-400 flex items-center justify-center text-cyan-400 font-bold">
+                  <Shield className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white text-sm">{character.name}</h4>
+                  <p className="text-[10px] text-cyan-400">✨ {character.equipped_title}</p>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="space-y-1 text-xs">
+                <div className="flex justify-between text-[10px] text-slate-400">
+                  <span>XP PROGRESS</span>
+                  <span className="text-cyan-400">450 / 800 XP</span>
+                </div>
+                <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+                  <div className="w-[56%] h-full bg-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.6)]" />
+                </div>
+              </div>
+            </div>
+
+            {/* Quests Preview */}
+            <div className="bg-[#080c14] border border-cyan-500/20 rounded-2xl p-5 space-y-3">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-300">
+                <span className="flex items-center gap-1.5">
+                  <Swords className="w-4 h-4 text-cyan-400" /> ACTIVE QUEST
+                </span>
+                <span className="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
+                  HARD
+                </span>
+              </div>
+              <p className="text-xs font-bold text-white">⚔️ Master Async JavaScript Patterns</p>
+              <div className="flex items-center justify-between text-[10px] text-slate-400">
+                <span className="text-cyan-400">+75 XP • +35 GOLD</span>
+                <span className="text-purple-400">INTELLIGENCE +5</span>
+              </div>
+            </div>
+
+            {/* Streak & Treasury Preview */}
+            <div className="bg-[#080c14] border border-cyan-500/20 rounded-2xl p-5 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-orange-400 flex items-center gap-1">
+                  <Flame className="w-4 h-4 text-orange-500" /> STREAK
+                </span>
+                <span className="text-sm font-extrabold text-orange-400">🔥 5 DAYS</span>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+                <span className="text-xs font-bold text-amber-400">GOLD TREASURY</span>
+                <span className="text-sm font-extrabold text-amber-300">🪙 380 GOLD</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Government Portal Header */}
-      <header className="bg-white border-b border-slate-200 px-4 lg:px-12 py-3 sticky top-0 z-40 shadow-xs">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          {/* Official Emblem & Title */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-800 via-teal-900 to-slate-900 text-white font-black shadow-md border border-emerald-600/40">
-              <span className="text-lg font-black text-amber-400">GOI</span>
+      {/* Core RPG Loop Pillars */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 z-10 relative">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-center text-white mb-12 font-mono">
+          THE REAL-LIFE PROGRESSION LOOP
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="bg-[#0d1322] border border-cyan-500/20 rounded-2xl p-6 text-center hover:border-cyan-400/50 transition">
+            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 mx-auto flex items-center justify-center text-cyan-400 mb-4">
+              <Swords className="w-6 h-6" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-black text-2xl tracking-tight text-slate-900">
-                  PM Gati<span className="text-emerald-700">Shakti</span>
-                </span>
-                <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-wider border border-emerald-300">
-                  National Portal
-                </span>
-              </div>
-              <p className="text-[10px] uppercase tracking-wider text-slate-600 font-bold hidden sm:block">
-                Integrated Multi-Modal Infrastructure & Inter-Agency Master Plan
-              </p>
-            </div>
+            <h3 className="font-bold text-white text-base mb-2">1. CREATE QUESTS</h3>
+            <p className="text-xs text-slate-400 leading-relaxed font-sans">
+              Convert mundane work, fitness, coding, and study goals into categorized RPG missions.
+            </p>
           </div>
 
-          {/* Quick Header Nav Links */}
-          <nav className="hidden lg:flex items-center gap-1 text-xs font-bold text-slate-700">
-            <button
-              onClick={() => onNavigatePage('department_portal')}
-              className="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-800 transition-colors"
-            >
-              Department Portal
-            </button>
-            <button
-              onClick={() => onNavigatePage('infrastructure3d')}
-              className="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-800 transition-colors flex items-center gap-1 text-indigo-700 font-extrabold"
-            >
-              <span className="w-2 h-2 rounded-full bg-indigo-500 animate-ping" />
-              3D Spatial Twin
-            </button>
-            <button
-              onClick={() => onNavigatePage('map')}
-              className="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-800 transition-colors"
-            >
-              GIS Route Planner
-            </button>
-            <button
-              onClick={() => onNavigatePage('underground')}
-              className="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-800 transition-colors"
-            >
-              Underground Twin
-            </button>
-            <button
-              onClick={() => onNavigatePage('reports')}
-              className="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-800 transition-colors"
-            >
-              DPR Reports
-            </button>
-          </nav>
-
-          {/* Enter Portal Button */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => onNavigatePage('department_portal')}
-              className="px-5 py-2.5 text-xs font-black text-white bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 hover:from-emerald-600 hover:to-teal-600 rounded-xl transition-all flex items-center gap-2 shadow-md shadow-emerald-800/20 cursor-pointer"
-            >
-              <span>Access Master Portal</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+          <div className="bg-[#0d1322] border border-cyan-500/20 rounded-2xl p-6 text-center hover:border-cyan-400/50 transition">
+            <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 mx-auto flex items-center justify-center text-amber-400 mb-4">
+              <Zap className="w-6 h-6" />
+            </div>
+            <h3 className="font-bold text-white text-base mb-2">2. EARN XP & GOLD</h3>
+            <p className="text-xs text-slate-400 leading-relaxed font-sans">
+              Complete quests to trigger instant floating reward feedback, XP gain, and Gold earnings.
+            </p>
           </div>
-        </div>
-      </header>
 
-      {/* Official Government Live Announcement Ticker Bar */}
-      <div className="bg-amber-50 border-b border-amber-200/80 px-4 lg:px-12 py-2 text-xs flex items-center gap-3 text-amber-950 font-medium">
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-600 text-white font-extrabold text-[10px] uppercase shrink-0">
-          <Bell className="w-3.5 h-3.5 animate-bounce" />
-          <span>Latest Official Update</span>
-        </div>
-        <div className="overflow-hidden whitespace-nowrap flex-1">
-          <p className="inline-block animate-marquee text-xs font-semibold text-slate-800">
-            • <strong className="text-amber-900">Cabinet Clearance:</strong> CCEA approves ₹18,500 Cr Multi-Modal Freight Extension along Dadri-Jewar Airport Corridor &nbsp;&nbsp;&nbsp;&nbsp;
-            • <strong className="text-emerald-900">3D GIS Spatial Twin:</strong> Sub-surface utility conflict scan active across 10 Central Infrastructure Ministries &nbsp;&nbsp;&nbsp;&nbsp;
-            • <strong className="text-indigo-900">Joint Trench Protocol:</strong> Integrated road paving and pipeline laying enabled to eliminate road re-excavation.
-          </p>
+          <div className="bg-[#0d1322] border border-cyan-500/20 rounded-2xl p-6 text-center hover:border-cyan-400/50 transition">
+            <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 mx-auto flex items-center justify-center text-purple-400 mb-4">
+              <Brain className="w-6 h-6" />
+            </div>
+            <h3 className="font-bold text-white text-base mb-2">3. LEVEL ATTRIBUTES</h3>
+            <p className="text-xs text-slate-400 leading-relaxed font-sans">
+              Watch your Strength, Intelligence, Wisdom, Agility, and Discipline stats grow deterministically.
+            </p>
+          </div>
+
+          <div className="bg-[#0d1322] border border-cyan-500/20 rounded-2xl p-6 text-center hover:border-cyan-400/50 transition">
+            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 mx-auto flex items-center justify-center text-emerald-400 mb-4">
+              <ShoppingBag className="w-6 h-6" />
+            </div>
+            <h3 className="font-bold text-white text-base mb-2">4. UNLOCK REWARDS</h3>
+            <p className="text-xs text-slate-400 leading-relaxed font-sans">
+              Spend Gold in the Guild Market to acquire avatars, titles, frames, and legendary cosmetic themes.
+            </p>
+          </div>
         </div>
       </div>
-
-      {/* HERO SECTION */}
-      <section className="relative bg-gradient-to-b from-emerald-900 via-slate-900 to-slate-950 text-white py-16 px-4 lg:px-12 border-b border-slate-800 overflow-hidden">
-        {/* Background Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-25 pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto relative z-10 space-y-8">
-          <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              <span>PM Gati Shakti National Master Plan Portal</span>
-            </div>
-
-            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
-              Unified Multi-Modal Infrastructure & Inter-Agency Master Plan
-            </h1>
-
-            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-              Empowering 10 Central Infrastructure Ministries and 36 States/UTs with real-time 3D spatial GIS conflict detection, subterranean utility mapping, automated route optimization, and single-window inter-agency clearances.
-            </p>
-          </div>
-
-          {/* Quick Gateway Cards (4 Core Portals) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-            {/* Gateway 1: 3D Spatial Twin */}
-            <div
-              onClick={() => onNavigatePage('infrastructure3d')}
-              className="bg-slate-800/80 backdrop-blur-md p-5 rounded-2xl border border-indigo-500/40 hover:border-indigo-400 transition-all cursor-pointer group hover:bg-slate-800 space-y-3 shadow-xl"
-            >
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-indigo-600 text-white shadow-md">
-                  <MapIcon className="w-6 h-6" />
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold">
-                  3D Command
-                </span>
-              </div>
-              <div>
-                <h3 className="font-extrabold text-base text-white group-hover:text-indigo-300 transition-colors flex items-center gap-1">
-                  3D Spatial Twin <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h3>
-                <p className="text-xs text-slate-300 mt-1 leading-normal">
-                  Interactive WebGL 3D view of surface roads, buildings, water mains, power ducts, fiber, & metro tunnels.
-                </p>
-              </div>
-            </div>
-
-            {/* Gateway 2: Inter-Dept Portal */}
-            <div
-              onClick={() => onNavigatePage('department_portal')}
-              className="bg-slate-800/80 backdrop-blur-md p-5 rounded-2xl border border-emerald-500/40 hover:border-emerald-400 transition-all cursor-pointer group hover:bg-slate-800 space-y-3 shadow-xl"
-            >
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-emerald-600 text-white shadow-md">
-                  <Building2 className="w-6 h-6" />
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
-                  10 Ministries
-                </span>
-              </div>
-              <div>
-                <h3 className="font-extrabold text-base text-white group-hover:text-emerald-300 transition-colors flex items-center gap-1">
-                  Inter-Department Portal <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h3>
-                <p className="text-xs text-slate-300 mt-1 leading-normal">
-                  Single-window inter-agency clearance, project submissions, NOC approvals, & collaboration hub.
-                </p>
-              </div>
-            </div>
-
-            {/* Gateway 3: GIS Map Planner */}
-            <div
-              onClick={() => onNavigatePage('map')}
-              className="bg-slate-800/80 backdrop-blur-md p-5 rounded-2xl border border-teal-500/40 hover:border-teal-400 transition-all cursor-pointer group hover:bg-slate-800 space-y-3 shadow-xl"
-            >
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-teal-600 text-white shadow-md">
-                  <Route className="w-6 h-6" />
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[10px] font-bold">
-                  2D GIS Engine
-                </span>
-              </div>
-              <div>
-                <h3 className="font-extrabold text-base text-white group-hover:text-teal-300 transition-colors flex items-center gap-1">
-                  GIS Route Planner <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h3>
-                <p className="text-xs text-slate-300 mt-1 leading-normal">
-                  Multi-modal route optimization, forest & river conflict scans, elevation profiling, & terrain analysis.
-                </p>
-              </div>
-            </div>
-
-            {/* Gateway 4: Underground Twin */}
-            <div
-              onClick={() => onNavigatePage('underground')}
-              className="bg-slate-800/80 backdrop-blur-md p-5 rounded-2xl border border-amber-500/40 hover:border-amber-400 transition-all cursor-pointer group hover:bg-slate-800 space-y-3 shadow-xl"
-            >
-              <div className="flex items-center justify-between">
-                <div className="p-3 rounded-xl bg-amber-600 text-white shadow-md">
-                  <Layers className="w-6 h-6" />
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold">
-                  Sub-surface
-                </span>
-              </div>
-              <div>
-                <h3 className="font-extrabold text-base text-white group-hover:text-amber-300 transition-colors flex items-center gap-1">
-                  Underground Twin <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h3>
-                <p className="text-xs text-slate-300 mt-1 leading-normal">
-                  Ground penetrating radar (GPR) sub-surface mapping, dig permission engine, & safety compliance.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Key Metrics Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-800">
-            <div className="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 text-center">
-              <div className="text-2xl font-black text-emerald-400">10</div>
-              <div className="text-xs text-slate-400 font-bold mt-1">Central Ministries Integrated</div>
-            </div>
-
-            <div className="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 text-center">
-              <div className="text-2xl font-black text-teal-400">12+</div>
-              <div className="text-xs text-slate-400 font-bold mt-1">Integrated GIS Data Layers</div>
-            </div>
-
-            <div className="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 text-center">
-              <div className="text-2xl font-black text-amber-400">₹2,400 Cr</div>
-              <div className="text-xs text-slate-400 font-bold mt-1">Cost Overrun Risk Saved</div>
-            </div>
-
-            <div className="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 text-center">
-              <div className="text-2xl font-black text-indigo-400">Zero</div>
-              <div className="text-xs text-slate-400 font-bold mt-1">Eco-Forest Disruption</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7 ENGINES OF GROWTH (PM GATI SHAKTI FRAMEWORK) */}
-      <section className="py-12 px-4 lg:px-12 max-w-7xl mx-auto w-full space-y-6">
-        <div className="text-center max-w-3xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-extrabold text-xs">
-            PM Gati Shakti Architecture
-          </div>
-          <h2 className="text-2xl md:text-3xl font-black text-slate-900">
-            Driven by 7 Engines of Economic Growth
-          </h2>
-          <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
-            Synchronizing multi-modal connectivity infrastructure across key economic sectors to deliver world-class logistics speed and efficiency.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
-          {/* Engine 1: Roads */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center mx-auto shadow-md">
-              <Route className="w-5 h-5" />
-            </div>
-            <h4 className="font-extrabold text-xs text-slate-900">Roadways</h4>
-            <span className="inline-block text-[10px] text-amber-800 bg-amber-50 font-bold px-2 py-0.5 rounded">MoRTH</span>
-          </div>
-
-          {/* Engine 2: Railways */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center mx-auto shadow-md">
-              <Train className="w-5 h-5" />
-            </div>
-            <h4 className="font-extrabold text-xs text-slate-900">Railways</h4>
-            <span className="inline-block text-[10px] text-blue-800 bg-blue-50 font-bold px-2 py-0.5 rounded">Railways</span>
-          </div>
-
-          {/* Engine 3: Mass Transport */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center mx-auto shadow-md">
-              <Building2 className="w-5 h-5" />
-            </div>
-            <h4 className="font-extrabold text-xs text-slate-900">Mass Transit</h4>
-            <span className="inline-block text-[10px] text-indigo-800 bg-indigo-50 font-bold px-2 py-0.5 rounded">Metro Corp</span>
-          </div>
-
-          {/* Engine 4: Waterways */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-cyan-600 text-white flex items-center justify-center mx-auto shadow-md">
-              <Droplets className="w-5 h-5" />
-            </div>
-            <h4 className="font-extrabold text-xs text-slate-900">Waterways</h4>
-            <span className="inline-block text-[10px] text-cyan-800 bg-cyan-50 font-bold px-2 py-0.5 rounded">Jal Shakti</span>
-          </div>
-
-          {/* Engine 5: Airports */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center mx-auto shadow-md">
-              <Plane className="w-5 h-5" />
-            </div>
-            <h4 className="font-extrabold text-xs text-slate-900">Airports</h4>
-            <span className="inline-block text-[10px] text-sky-800 bg-sky-50 font-bold px-2 py-0.5 rounded">Civil Aviation</span>
-          </div>
-
-          {/* Engine 6: Ports */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-md">
-              <Anchor className="w-5 h-5" />
-            </div>
-            <h4 className="font-extrabold text-xs text-slate-900">Ports</h4>
-            <span className="inline-block text-[10px] text-emerald-800 bg-emerald-50 font-bold px-2 py-0.5 rounded">Shipping</span>
-          </div>
-
-          {/* Engine 7: Logistics */}
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all text-center space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center mx-auto shadow-md">
-              <Box className="w-5 h-5" />
-            </div>
-            <h4 className="font-extrabold text-xs text-slate-900">Logistics</h4>
-            <span className="inline-block text-[10px] text-teal-800 bg-teal-50 font-bold px-2 py-0.5 rounded">DPIIT</span>
-          </div>
-        </div>
-      </section>
-
-      {/* OFFICIAL GOVERNMENT FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 lg:px-12 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-white font-extrabold text-base">
-              <div className="w-7 h-7 rounded-lg bg-emerald-500 text-slate-950 flex items-center justify-center text-xs font-black">
-                GOI
-              </div>
-              <span>PM Gati Shakti Master Plan</span>
-            </div>
-            <p className="text-[11px] leading-relaxed text-slate-400">
-              National Portal for Multi-Modal Infrastructure Connectivity and Inter-Departmental Clearance. Designed & maintained by the National Master Plan Secretariat in collaboration with NIC.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <h5 className="text-white font-extrabold text-xs uppercase tracking-wider">Quick Links</h5>
-            <ul className="space-y-1.5 text-[11px]">
-              <li><button onClick={() => onNavigatePage('department_portal')} className="hover:text-emerald-400">Department Portal</button></li>
-              <li><button onClick={() => onNavigatePage('infrastructure3d')} className="hover:text-emerald-400">3D Spatial Twin Engine</button></li>
-              <li><button onClick={() => onNavigatePage('map')} className="hover:text-emerald-400">GIS Route Planner</button></li>
-              <li><button onClick={() => onNavigatePage('underground')} className="hover:text-emerald-400">Sub-Surface Underground Twin</button></li>
-            </ul>
-          </div>
-
-          <div className="space-y-2">
-            <h5 className="text-white font-extrabold text-xs uppercase tracking-wider">Government Guidelines</h5>
-            <ul className="space-y-1.5 text-[11px]">
-              <li><a href="#" className="hover:text-emerald-400">National Master Plan Principles</a></li>
-              <li><a href="#" className="hover:text-emerald-400">Joint Utility Trenching Standard Operating Procedure</a></li>
-              <li><a href="#" className="hover:text-emerald-400">Environmental & Forest Clearance NOC Workflow</a></li>
-              <li><a href="#" className="hover:text-emerald-400">PM Gati Shakti NMP Guidelines 2026</a></li>
-            </ul>
-          </div>
-
-          <div className="space-y-2">
-            <h5 className="text-white font-extrabold text-xs uppercase tracking-wider">Helpdesk & Support</h5>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              National Master Plan Secretariat<br />
-              Udyog Bhawan, New Delhi - 110011<br />
-              Toll Free: 1800-11-2026<br />
-              Email: helpdesk-gatishakti@gov.in
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="bg-slate-950 py-4 px-4 lg:px-12 border-t border-slate-800 text-[11px] text-slate-500">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-            <div>
-              © 2026 National Master Plan Secretariat, Government of India. All Rights Reserved.
-            </div>
-            <div className="flex items-center gap-4">
-              <a href="#" className="hover:text-slate-300">Privacy Policy</a>
-              <span>•</span>
-              <a href="#" className="hover:text-slate-300">Terms of Service</a>
-              <span>•</span>
-              <a href="#" className="hover:text-slate-300">Hyperlinking Policy</a>
-              <span>•</span>
-              <a href="#" className="hover:text-slate-300">NIC Disclaimer</a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
-
