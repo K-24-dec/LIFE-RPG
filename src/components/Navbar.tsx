@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGame } from '../context/GameContext';
+import { DemoReelModal } from './DemoReelModal';
 import {
   Award,
   BookOpen,
@@ -22,6 +23,7 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
   const { character, isAuthenticated, logoutUser } = useGame();
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   const navLinks = [
     { name: 'Adventure', path: '/dashboard', icon: Compass },
@@ -138,6 +140,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
             ) : (
               <div className="flex items-center gap-3">
                 <button
+                  onClick={() => setIsDemoOpen(true)}
+                  className="px-3 py-2 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 transition-all duration-200 flex items-center gap-1.5 shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>🎬 DEMO REEL</span>
+                </button>
+                <button
                   onClick={() => onNavigate('/login')}
                   className="px-4 py-2 rounded-xl text-xs font-bold text-cyan-400 hover:text-white border border-cyan-500/40 hover:bg-cyan-500/10 transition-all duration-200"
                 >
@@ -154,6 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
           </div>
         </div>
       </header>
+      <DemoReelModal isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
 
       {/* Mobile Bottom Navigation Bar */}
       {isAuthenticated && (
