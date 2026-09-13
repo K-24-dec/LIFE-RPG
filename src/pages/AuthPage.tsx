@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useGame } from '../context/GameContext';
-import { Lock, Mail, Shield, Sparkles, Swords, User } from 'lucide-react';
+import { Lock, Mail, Shield, Sparkles, User } from 'lucide-react';
 
 interface AuthPageProps {
   mode: 'login' | 'signup';
@@ -31,15 +31,6 @@ export const AuthPage: React.FC<AuthPageProps> = ({ mode, onNavigate }) => {
     }, 400);
   };
 
-  const handleAccountALogin = () => {
-    loginUser('account.a@liferpg.io', false, 'account_a');
-    onNavigate('/dashboard');
-  };
-
-  const handleAccountBLogin = () => {
-    loginUser('account.b@liferpg.io', true, 'account_b');
-    onNavigate('/dashboard');
-  };
 
   return (
     <div className="min-h-screen bg-[#080c14] text-slate-100 font-mono flex items-center justify-center p-4 relative overflow-hidden">
@@ -124,25 +115,6 @@ export const AuthPage: React.FC<AuthPageProps> = ({ mode, onNavigate }) => {
             {loading ? 'INITIALIZING HERO...' : mode === 'login' ? 'LOGIN TO REALM' : 'CREATE FRESH LEVEL 1 HERO'}
           </button>
         </form>
-
-        {/* Quick Multi-Account Test Buttons */}
-        <div className="mt-6 pt-6 border-t border-slate-800 space-y-2 text-center">
-          <p className="text-[11px] text-slate-400 mb-2 font-bold">HACKATHON ISOLATION DEMO ACCOUNTS</p>
-          <button
-            onClick={handleAccountALogin}
-            className="w-full py-2.5 rounded-xl border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 font-bold text-xs flex items-center justify-center gap-2 transition"
-          >
-            <Swords className="w-4 h-4" />
-            <span>ACCOUNT A: RETURNING HERO (LVL 5)</span>
-          </button>
-          <button
-            onClick={handleAccountBLogin}
-            className="w-full py-2.5 rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 font-bold text-xs flex items-center justify-center gap-2 transition"
-          >
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>ACCOUNT B: FRESH NEW HERO (LVL 1)</span>
-          </button>
-        </div>
 
         <div className="mt-6 text-center text-xs text-slate-400">
           {mode === 'login' ? (

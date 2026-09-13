@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useGame } from '../context/GameContext';
-import { DemoReelModal } from '../components/DemoReelModal';
 import {
   Award,
   BookOpen,
@@ -22,7 +21,6 @@ interface LandingPageProps {
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const { isAuthenticated, character } = useGame();
-  const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   const handleStart = () => {
     if (isAuthenticated) {
@@ -71,11 +69,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <ChevronRight className="w-5 h-5" />
           </button>
           <button
-            onClick={() => setIsDemoOpen(true)}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-amber-500/15 border border-amber-400/60 hover:bg-amber-500/25 text-amber-300 font-black tracking-widest text-base transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(245,158,11,0.3)]"
+            onClick={() => onNavigate('/quests')}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#0d1322] border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:text-white font-bold tracking-wider text-base transition-all hover:bg-cyan-500/10 flex items-center justify-center gap-2"
           >
-            <Sparkles className="w-5 h-5 text-amber-400 animate-bounce" />
-            <span>🎬 DEMO REEL MODE</span>
+            <span>EXPLORE THE WORLD</span>
           </button>
         </div>
 
@@ -198,7 +195,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </div>
-      <DemoReelModal isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
     </div>
   );
 };
